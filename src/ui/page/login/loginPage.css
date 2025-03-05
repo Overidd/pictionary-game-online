@@ -1,0 +1,113 @@
+.login {
+   display: grid;
+   grid-template-columns: repeat(1, 1fr);
+   place-items: center;
+   gap: 1rem;
+}
+
+.login__figure {
+   position: relative;
+   width: 10rem;
+   background-color: var(--color-black-300);
+   padding: 10%;
+   border-radius: 50%;
+   /* overflow: hidden; */
+}
+
+.login__avatar.login__avatar--loading {
+   background-image: url('/gif/charlie-loader.gif');
+   background-size: 15rem;
+}
+
+.login__avatar {
+   /* width: 5rem;
+   height: 5rem; */
+   aspect-ratio: 1/1;
+   background-size: contain;
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+.login__icon {
+   position: absolute;
+   background-color: var(--color-primary-100-transparent);
+   right: 0;
+   bottom: 0;
+   padding: 0.5rem;
+   border-radius: 50%;
+   transition: background-color 0.2s ease-in-out;
+
+   .icon--rotate {
+      color: var(--color-white-100);
+      width: 2rem;
+      height: 2rem;
+      display: block;
+      font-weight: bold;
+      rotate: 120deg;
+      cursor: pointer;
+   }
+}
+
+.login__icon:hover {
+   background-color: var(--color-secondary-300-transparent);
+}
+
+.login__icon:active {
+   outline: 2px solid var(--color-secondary-300-transparent);
+}
+
+.login__fieldset {
+   .login__label {
+      text-align: center;
+      color: var(--color-white-100);
+      font-size: 1.3rem;
+      display: block;
+      user-select: none;
+
+      margin-bottom: 1.5rem;
+   }
+
+   .login__input {
+      width: 100%;
+      padding: 1rem;
+      border-radius: var(--border-radius-bt);
+      border: none;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--color-black-300);
+      letter-spacing: 0.1rem;
+
+      caret-color: var(--color-primary-100);
+   }
+
+   .login__input.login__input--error{
+      outline: 3px solid var(--color-tertiary-100);
+   }
+
+   .login__input::placeholder {
+      color: var(--color-black-400);
+   }
+}
+
+.login__button {
+   justify-items: center;
+   padding: 1rem 2.5rem;
+}
+
+
+@media screen and (min-width: 768px) {
+   .login {
+      grid-template-columns: repeat(2, 1fr);
+   }
+
+   .login__button {
+      grid-column: span 2;
+      padding: 1.5rem 3rem;
+   }
+
+   .login__figure {
+      width: 12rem;
+      padding: 2.2rem;
+   }
+}

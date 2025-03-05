@@ -1,0 +1,53 @@
+
+
+
+.select-word {
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: var(--color-primary-300-trasparent); 
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.select-word__title, .select-word__item {
+   padding: 1rem 1.5rem;
+   text-align: center;
+   color: var(--color-white-100);
+   border: var(--border-radius-box);
+}
+
+.select-word__wrapper{
+   width: 80%;
+}
+
+.select-word__title {
+   background-color: var(--color-primary-200);
+   border-radius: var(--border-radius-box);
+}
+
+.select-word__list{
+   margin-top: 1rem;
+   list-style: none;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap;
+   justify-content: center;
+   gap: 1rem;
+}
+
+.select-word__item{
+   flex: 1;
+   background-color: var(--color-secondary-300);
+   border-radius: var(--border-radius-box);
+   transition: all 0.1s ease-in-out;
+}
+
+.select-word__item:hover {
+   cursor: pointer;
+   background-color: var(--color-secondary-200);
+}

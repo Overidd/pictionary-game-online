@@ -1,0 +1,110 @@
+.layout--game {
+   display: flex;
+   /* justify-content: center; */
+   align-items: center;
+   flex-direction: column;
+}
+
+.layout__aside {
+   position: static;
+   --width-icon: 4.2rem;
+   --height-icon: 4.2rem;
+   right: 2rem;
+   top: 2rem;
+}
+
+.config__item {
+   display: inline-block;
+   vertical-align: middle;
+   list-style: none;
+   width: var(--width-icon);
+   height: var(--height-icon);
+   background-color: var(--color-black-300);
+   color: var(--color-white-100);
+   cursor: pointer;
+   border-radius: 50%;
+   padding: 1rem;
+
+   margin-bottom: 1rem;
+}
+
+
+.config__item--avatar {
+   position: relative;
+
+   .config__avatar-img {
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      object-position: center;
+      width: calc(var(--width-icon) - 2rem);
+      height: calc(var(--width-icon) - 2rem);
+   }
+
+   .config__avatar-username {
+      position: absolute;
+      font-size: 1.5rem;
+      top: 50%;
+      right: 80%;
+      transform: translate(-50%, -50%);
+      display: none;
+   }
+}
+
+.config__item--setting {
+   position: relative;
+
+   .config__setting-icon {
+      color: var(--color-white-100);
+      width: calc(var(--width-icon) - 2rem);
+      height: calc(var(--width-icon) - 2rem);
+      transition: rotate 0.2s ease-in-out;
+   }
+
+   .config__setting-icon:hover {
+      rotate: 180deg;
+   }
+}
+
+.layout__main--game {
+   padding: 1rem 1rem;
+   max-width: 65rem;
+   height: 40rem;
+   overflow: hidden;
+}
+
+@media screen and (min-width: 768px) {
+   .layout--game {
+      justify-content: center;
+   }
+
+   .layout__aside {
+      position: absolute;
+   }
+
+   .config__item {
+      display: block;
+   }
+
+   .layout__main--game {
+      padding: 1.5rem 1.5rem;
+      max-width: 65rem;
+      height: 39rem;
+   }
+
+   .config__item:nth-child(2) {
+      margin-top: 1rem;
+   }
+
+   .config__item--avatar {
+      .config__avatar-username {
+         display: block;
+      }
+   }
+}
+
+@media screen and (min-width: 1380px) {
+   .layout__main--game {
+      max-width: 65rem;
+      height: 40rem;
+   }
+}

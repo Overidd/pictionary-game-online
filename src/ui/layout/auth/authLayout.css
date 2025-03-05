@@ -1,0 +1,10 @@
+.layout--auth {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.layout__main--auth {
+   padding: 3.5rem;
+   max-width: 40.6rem;
+}

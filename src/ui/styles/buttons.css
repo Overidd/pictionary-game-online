@@ -1,0 +1,45 @@
+.btn {
+   padding: 1rem 1.5rem;
+   border: none;
+   color: var(--color-white-100);
+   text-align: center;
+   font-size: 1rem;
+   line-height: 100%;
+   letter-spacing: 0.10rem;
+   text-transform: uppercase;
+   text-decoration: none;
+   cursor: pointer;
+   border-radius: var(--border-radius-bt);
+   transition: background 0.1s ease-in-out;
+}
+
+.btn.btn-primary {
+   background: #2463FF;
+   box-shadow: inset 0.1rem 0.6rem 0rem 0.3rem #3C74FF, 0rem 0.2rem 0rem 0.4rem #140E66;
+}
+
+.btn.btn-primary:active {
+   background: #3C74FF;
+   box-shadow: inset 0.1rem 0.6rem 0rem 0.3rem #2463FF, 0rem 0.2rem 0rem 0.4rem #140E66;
+}
+
+.btn.btn-secondary {
+   background: #8c4fc6;
+   box-shadow: inset 0.1rem 0.6rem 0rem 0.3rem #a96ed1, 0rem 0.2rem 0rem 0.4rem #140E66;
+}
+
+.btn.btn-secondary:active {
+   background: #a96ed1;
+   box-shadow: inset 0.1rem 0.6rem 0rem 0.3rem #8c4fc6, 0rem 0.2rem 0rem 0.4rem #140E66;
+}
+
+.btn.btn-tertiary {
+   background: linear-gradient(180deg, #FE71FE 16.42%, #7199FF 100%);
+   box-shadow: inset 0.1rem 0.6rem 0rem 0.3rem #C642FB, 0rem 0.2rem 0rem 0.4rem #140E66;
+}
+
+
+.btn.btn-quinta {
+   background: linear-gradient(180deg, #48b 16.42%, #7199FF 100%);
+   box-shadow: inset 0.1rem 0.6rem 0rem 0.3rem #C642FB, 0rem 0.2rem 0rem 0.4rem #000;
+}

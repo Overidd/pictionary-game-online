@@ -1,0 +1,71 @@
+.input {
+   border: none;
+   border-radius: var(--border-radius-bt);
+   text-align: center;
+   font-weight: bold;
+   letter-spacing: 2px;
+
+   transition: all 0.1s ease-in-out;
+   padding: 0.5rem;
+}
+
+.input.input__primary {
+   background-color: #fffe;
+   box-shadow: 0rem 0.2rem 0rem 0.4rem #110a75;
+}
+
+.input.input__primary:focus {
+   background-color: #fff;
+}
+
+
+/** ---[ INPUT RANGE ]---  */
+/* Eliminar los estilos predeterminados en algunos navegadores */
+.range {
+   -webkit-appearance: none;
+   appearance: none;
+   border-radius: 5px;
+   outline: none;
+   transition: background 0.3s;
+   cursor: pointer;
+}
+
+/* Estilizar la barra de progreso en WebKit (Chrome, Safari, Edge) */
+.range::-webkit-slider-runnable-track {
+   background: #3C74FF;
+   border-radius: 5px;
+}
+
+/* Estilizar el "thumb" (control deslizante) en WebKit */
+.range::-webkit-slider-thumb {
+   -webkit-appearance: none;
+   appearance: none;
+   width: 20px;
+   height: 20px;
+   background: var(--color-white-100);
+   border-radius: 50%;
+   cursor: pointer;
+   transition: transform 0.2s;
+}
+
+/* Efecto al hacer hover sobre el "thumb" */
+.range:hover::-webkit-slider-thumb {
+   transform: scale(1.2);
+}
+
+/* Estilos para Firefox */
+.range::-moz-range-track {
+   width: 100%;
+   height: 8px;
+   background: #4CAF50;
+   border-radius: 5px;
+}
+
+.range::-moz-range-thumb {
+   width: 20px;
+   height: 20px;
+   background: #fff;
+   border: 2px solid #4CAF50;
+   border-radius: 50%;
+   cursor: pointer;
+}

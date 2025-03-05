@@ -1,0 +1,14 @@
+
+.timer {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100%;
+   width: 100%;
+}
+
+.timer__time {
+   font-size: 2rem;
+   font-weight: bold;
+   color: var(--color-white-100);
+}

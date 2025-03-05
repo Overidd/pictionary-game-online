@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Chau+Philomene+One:ital@0;1&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+*::after,
+*::before,
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --color-black-100: #000;
+  --color-black-300: #1d1d1d;
+  --color-black-400: #0005;
+  --color-white-100: #fff;
+  --color-white-200: #fffa;
+  --color-white-300: #fff9;
+  --color-white-400: #fff6;
+
+  --color-primary-100: #200f64;
+  --color-primary-200: #3023ae;
+
+  --color-secondary-100: #002383;
+  --color-secondary-200: #002383;
+  --color-secondary-300: #003f9a;
+
+  --color-tertiary-100: #8c4fc6;
+  --color-tertiary-200: #a96ed1;
+
+  --color-primary-100-transparent: #200f64b3;
+  --color-primary-200-transparent: #200f64cc;
+  --color-primary-300-transparent: #200f6480;
+
+  --color-secondary-100-transparent: #002383ad;
+  --color-secondary-200-transparent: rgba(0, 35, 131, 0.8);
+  --color-secondary-300-transparent: rgba(0, 63, 154, 0.6);
+
+  --border-radius-box: 20px;
+  --border-radius-bt: 18px;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+body {
+  font-family: 'Chau Philomene One', sans-serif;
+  width: 100dvw;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+
+.app__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.layout {
+  width: 100%;
+  height: 100dvb;
+}
+
+.layout__main {
+  background-color: var(--color-primary-100-transparent);
+  color: var(--color-white-100);
+  border-radius: var(--border-radius-box);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 90%;
+}

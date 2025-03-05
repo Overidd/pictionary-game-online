@@ -1,0 +1,143 @@
+.room {
+   width: 80%;
+   height: 100%;
+   margin: 0 auto;
+
+   display: grid;
+   gap: 1rem;
+   grid-template-rows: 10% 90%;
+}
+
+.room__actions {
+   display: flex;
+   gap: 1rem;
+
+   .room__button {
+      flex: 1;
+      opacity: 0.5;
+   }
+}
+
+.room__button.room__button--active {
+   opacity: 1;
+}
+
+/** ----------[ ROOM SEARCH ]-------- */
+.room-search {
+   display: none;
+   flex-direction: column;
+   gap: 2rem;
+}
+
+.room-search.room-search--active {
+   display: flex;
+}
+
+.room-search__input {
+   width: 100%;
+   font-size: 1.1rem;
+   padding: 1rem;
+}
+
+/* Contenedor de las salas */
+.room-list {
+   flex: 1;
+   overflow-y: auto;
+   scrollbar-width: none;
+}
+
+.room-item {
+   background-color: var(--color-primary-300-transparent);
+   border-radius: calc(var(--border-radius-bt));
+   font-size: 1.2rem;
+   cursor: pointer;
+   list-style: none;
+
+   box-shadow: 0rem 0rem 0rem 0.2rem #231c817e;
+   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+
+   padding: 0.7rem;
+   margin-bottom: 1rem;
+
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.room-item.hidden {
+   opacity: 0.2;
+   transform: translateY(5px);
+}
+
+.room-item:hover {
+   border-color: var(--color-secondary-300);
+}
+
+.room-item:active {
+   transform: translateY(5px);
+}
+
+.room-item__name {
+   background-color: #2463FF;
+   border-radius: calc(var(--border-radius-bt) - 0.2rem);
+   padding: 0.8rem;
+}
+
+.room-item__info {
+   .room-item__player-count {
+      font-size: inherit;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+   }
+
+   .room-icon__icon {
+      vertical-align: middle;
+   }
+}
+
+/** --------[ ROOM CREATE ]-------- */
+.room-create {
+   display: none;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   gap: 2rem;
+   width: 100%;
+   margin: auto;
+}
+
+.room-create.room-create--active {
+   display: flex;
+}
+
+.room-create__input--name {
+   width: 100%;
+   padding: 1rem;
+}
+
+:is(.range--player, .range--round) {
+   width: 100%;
+}
+
+.range__label {
+   display: block;
+   margin: 0.5rem 0;
+}
+
+.range__input {
+   width: 100%;
+   align-self: center;
+}
+
+.range__details {
+   margin-top: 0.5rem;
+   display: grid;
+   grid-auto-flow: column;
+   justify-content: space-between;
+}
+
+@media screen and (min-width: 768px) {
+   .room-create {
+      width: 55%;
+   }
+}

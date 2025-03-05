@@ -1,0 +1,81 @@
+.game {
+   display: grid;
+   grid-template-columns: 1fr;
+   gap: 2rem;
+   /* height: 100%; */
+}
+
+.player{
+   height: 100%;
+}
+
+.player__wrapper {
+   display: grid;
+   grid-template-rows: 50% 50%;
+   gap: 1rem;
+}
+
+.player__list {
+   overflow-y: auto;
+   scrollbar-width: none;
+   /* display: none; */
+   /* height: 100%; */
+}
+
+.player__chat {
+   /* overflow: hidden; */
+   /* overflow-y: auto; */
+   /* scrollbar-width: none; */
+   /* display: none; */
+   /* margin-top: auto; */
+   /* height: 100%; */
+   /* background-color: aqua; */
+   /* display: none; */
+}
+
+.board {
+   /* display: flex; */
+   height: fit-content;
+
+   .board__status {
+      vertical-align: middle;
+   }
+
+   .board__time {
+      float: right;
+      vertical-align: middle;
+   }
+}
+
+.board__status,
+.board__time,
+.player__status {
+   font-size: 1.1rem;
+}
+
+.player__wrapper,
+.board__graph {
+   background-color: var(--color-secondary-100-transparent);
+   border-radius: var(--border-radius-box);
+   padding: 1rem;
+   margin-top: 1rem;
+   height: 35rem;
+}
+
+.board__graph{
+   position: relative;
+}
+
+
+@media screen and (min-width: 850px) {
+   .game {
+      grid-template-columns: 24% 1fr;
+   }
+}
+
+@media screen and (min-width: 1380px) {
+   .game {
+      /* background-color: tomato; */
+      grid-template-columns: 27% 1fr;
+   }
+}
