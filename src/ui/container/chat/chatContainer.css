@@ -1,6 +1,7 @@
 
 .chat {
    height: 100%;
+   font-size: 0.8rem;
 }
 
 .chat__list, .chat__input {
@@ -54,3 +55,8 @@
    color: var(--color-white-300);
 }
 
+@media screen and (min-width: 768px) {
+   .chat {
+      font-size: 1rem;
+   }
+}

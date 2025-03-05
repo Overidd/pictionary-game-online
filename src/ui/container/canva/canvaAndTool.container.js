@@ -130,6 +130,11 @@ class CustomCanvas extends HTMLCanvasElement {
       this.addEventListener("mouseup", this.stopDrawing); // cuando se suelta
       this.addEventListener("mouseleave", this.stopDrawing); // cuando se sale
       window.addEventListener('keydown', this.handleKeyDown);
+
+      this.addEventListener("touchstart", this.startDrawingTouch);
+      this.addEventListener("touchmove", this.drawTouch);
+      this.addEventListener("touchend", this.stopDrawing);
+      this.addEventListener("touchcancel", this.stopDrawing);
    }
    disconnectedCallback() {
       this.removeEventListener("mousedown", this.startDrawing);
@@ -144,6 +149,19 @@ class CustomCanvas extends HTMLCanvasElement {
       if (this.MODESDRAW.PAINTBUCKET === this.modesDraw)
          this.paintBucketCanvas.paintBucket(e.offsetX, e.offsetY);
    }
+
+   // Cunado el mause se pulsa, la funcion se ejecuta para iniciar el dibujo
+   startDrawing = (e) => {
+      if (!this.ctx) return;
+      this.isDrawing = true;
+      // Cordenadas iniciales
+      [this.startX, this.startY] = [e.offsetX, e.offsetY];
+      [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+
+      this.#appendHistoryImage(this.ctx.getImageData(0, 0, this.width, this.height));
+      this.redoImages = [];
+   }
+
    // Cuando el mause se mueve, la funcion se ejecuta para dibujar
    draw = (e) => {
       if (!this.isDrawing) return;
@@ -162,25 +180,56 @@ class CustomCanvas extends HTMLCanvasElement {
             this.ctx.stroke();
             // Guardar las cordenadas finales
             [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
-
             break;
          default:
             break;
       }
    }
 
-   // Cunado el mause se pulsa, la funcion se ejecuta para iniciar el dibujo
-   startDrawing = (e) => {
+   startDrawingTouch = (e) => {
+      e.preventDefault(); // Evita el desplazamiento de la pantalla
       if (!this.ctx) return;
       this.isDrawing = true;
 
-      // Cordenadas iniciales
-      [this.startX, this.startY] = [e.offsetX, e.offsetY];
-      [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+      const touch = e.touches[0]; // Obtener el primer toque
+      const { x, y } = this.getTouchPos(touch);
+
+      [this.startX, this.startY] = [x, y];
+      [this.lastX, this.lastY] = [x, y];
 
       this.#appendHistoryImage(this.ctx.getImageData(0, 0, this.width, this.height));
       this.redoImages = [];
-   }
+   };
+
+   drawTouch = (e) => {
+      e.preventDefault();
+      if (!this.isDrawing) return;
+      switch (this.modesDraw) {
+         case this.MODESDRAW.DRAW:
+         case this.MODESDRAW.ERASE:
+
+            const touch = e.touches[0];
+            const { x, y } = this.getTouchPos(touch);
+
+            // Comienza el dibujo
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.lastX, this.lastY);
+            this.ctx.lineTo(x, y);
+            this.ctx.stroke();
+
+            [this.lastX, this.lastY] = [x, y];
+            break;
+         default:
+            break;
+      }
+   };
+   getTouchPos = (touch) => {
+      const rect = this.getBoundingClientRect();
+      return {
+         x: touch.clientX - rect.left,
+         y: touch.clientY - rect.top
+      };
+   };
 
    // Cuando el mause se suelta, la funcion se ejecuta para parar el dibujo
    stopDrawing = (e) => {
@@ -325,7 +374,7 @@ export class CanvasAndTools extends HTMLDivElement {
 
       this.initEvent();
       this.initValue()
-      // this.resizeCanvas();
+      this.resizeCanvas();
    }
 
    initEvent() {
@@ -336,7 +385,7 @@ export class CanvasAndTools extends HTMLDivElement {
       this.$bt.undo.addEventListener('click', this.handleUndo);
       this.$bt.paintBucket.addEventListener('click', this.handlePaintBucket);
       this.$input.color.addEventListener('change', this.handleColorChange);
-      // window.addEventListener("resize", this.resizeCanvas);
+      window.addEventListener("resize", this.resizeCanvas); //*
       document.addEventListener('click', this.handleClickOutside);
    }
 
@@ -348,7 +397,7 @@ export class CanvasAndTools extends HTMLDivElement {
       this.$bt.undo.removeEventListener('click', this.handleUndo);
       this.$bt.paintBucket.removeEventListener('click', this.handlePaintBucket);
       this.$input.color.removeEventListener('change', this.handleColorChange);
-      // window.removeEventListener("resize", this.resizeCanvas);
+      window.removeEventListener("resize", this.resizeCanvas); //*
       document.removeEventListener('click', this.handleClickOutside);
    }
 
@@ -446,47 +495,22 @@ export class CanvasAndTools extends HTMLDivElement {
    };
 
    _resizeCanvas = () => {
-      const tempCanvas = document.createElement("canvas");
-      const tempCtx = tempCanvas.getContext("2d");
+      const isMobile = window.innerWidth < 768; // Definir breakpoint para móviles
+      // const newWidth = isMobile ? 320 : window.innerWidth > 1380 ? 690 : 450;
+      // const newHeight = isMobile ? 400 : window.innerWidth > 1380 ? 480 : 460;
 
-      // Guardar el tamaño actual del canvas
-      const oldWidth = this.canvas.width;
-      const oldHeight = this.canvas.height;
-
-      // Guardar el contenido actual
-      tempCanvas.width = oldWidth;
-      tempCanvas.height = oldHeight;
-      tempCtx.drawImage(this.canvas, 0, 0);
-
-      // Determinar el nuevo tamaño del canvas según los breakpoints
-      let newWidth, newHeight;
-      if (window.innerWidth > 1380) {
-         newWidth = 690;
-         newHeight = 480;
-      } else if (window.innerWidth > 768) {
-         newWidth = 450;
-         newHeight = 460;
+      if (isMobile) {
+         // Si está en móvil, reiniciar el canvas completamente
+         this.removeChild(this.canvas);
+         this.canvas = new CustomCanvas(320, 330);
+         this.appendChild(this.canvas);
       } else {
-         newWidth = 320;
-         newHeight = 400;
+         // Si no está en móvil, solo cambiar el tamaño sin reinstanciar
+         // this.canvas.width = newWidth;
+         // this.canvas.height = newHeight;
       }
-
-      // Calcular la escala de redimensionamiento
-      const scaleX = newWidth / oldWidth;
-      const scaleY = newHeight / oldHeight;
-
-      // Cambiar el tamaño del canvas
-      this.canvas.width = newWidth;
-      this.canvas.height = newHeight;
-
-      const ctx = this.canvas.getContext("2d");
-
-      // Ajustar la escala antes de volver a dibujar
-      ctx.scale(scaleX, scaleY);
-
-      // Dibujar la imagen original reescalada
-      ctx.drawImage(tempCanvas, 0, 0, newWidth, newHeight);
    };
+
 
 
    setBrushSize(mode, size) {

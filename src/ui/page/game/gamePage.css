@@ -5,13 +5,14 @@
    /* height: 100%; */
 }
 
-.player{
+.player {
    height: 100%;
 }
 
 .player__wrapper {
    display: grid;
-   grid-template-rows: 50% 50%;
+   /* grid-template-rows: 50% 50%; */
+   grid-template-columns: 1fr 1fr;
    gap: 1rem;
 }
 
@@ -34,8 +35,10 @@
 }
 
 .board {
-   /* display: flex; */
+   grid-row-start: 1;
+
    height: fit-content;
+   overflow: hidden;
 
    .board__status {
       vertical-align: middle;
@@ -59,17 +62,26 @@
    border-radius: var(--border-radius-box);
    padding: 1rem;
    margin-top: 1rem;
-   height: 35rem;
+   /* height: 35rem; */
 }
 
-.board__graph{
+.board__graph {
    position: relative;
 }
-
 
 @media screen and (min-width: 850px) {
    .game {
       grid-template-columns: 24% 1fr;
+   }
+
+   .player__wrapper {
+      grid-template-rows: 50% 50%;
+      grid-template-columns: 1fr;
+      height: 35rem;
+   }
+
+   .board {
+      grid-row-start: auto;
    }
 }
 
