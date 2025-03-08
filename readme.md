@@ -2,9 +2,11 @@
 
 ## Ejecutar el proyecto
 
-1: npm run i
-2: coviar el archivo .env.template a .env
-3: npm run dev
+```
+   1: npm run install
+   2: coviar el archivo .env.template a .env
+   3: npm run dev
+```
 
 ## Rutas existentes 
  ```
