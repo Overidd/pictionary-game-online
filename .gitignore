@@ -27,4 +27,3 @@ dist-ssr
 .env.local
 dudas.txt
 mode_modules/
-package-lock.json
