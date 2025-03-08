@@ -24,3 +24,6 @@ El desarrollo orientado a poo y uso de web componentes
 
 ## Arquitectura
 El proyecto se encuentra desarrollado con el enfoque de la arquitectura de limpia
+
+## Diseño del proyecto
+[Ver el PDF](./design.pdf)
