@@ -1,4 +1,5 @@
-import { userService } from '../../factory';
+import { userService, wsService } from '../../factory';
+import { RouterNavigation } from '../../router/routerApp';
 import './gameLayout.css';
 import layoutHTML from './gameLayout.html?raw';
 
@@ -16,7 +17,25 @@ export class GameLayout extends HTMLDivElement {
          username: this.querySelector('.config__avatar-username'),
       }
 
+      this.$logout = this.querySelector('.config__item--logout');
+
       this.#renderChildren(children);
+   }
+
+   connectedCallback() {
+      this.loadingUser();
+      this.initEvent()
+   }
+
+   initEvent() {
+      this.$logout.addEventListener('click', this.handleLogout);
+   }
+
+   handleLogout = (e) => {
+      e.preventDefault();
+      userService.logout();
+      wsService.closeConnection()
+      RouterNavigation.navigateTo('login');
    }
 
    #renderChildren(children) {
@@ -29,9 +48,6 @@ export class GameLayout extends HTMLDivElement {
       this.htmlmain.appendChild(new children());
    }
 
-   connectedCallback() {
-      this.loadingUser();
-   }
 
    loadingUser() {
       userService.getUser()

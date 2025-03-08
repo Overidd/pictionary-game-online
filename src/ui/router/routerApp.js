@@ -19,7 +19,8 @@ const router = {
       'component': GamePage,
    },
    '404': {
-      'component': '<h1>404</h1>',
+      'layout': AuthLayout,
+      'component': LoginPage,
    }
 }
 
@@ -27,6 +28,7 @@ export class RouterNavigation {
    static path = {
       'login': '/login',
       'room': '/room',
+      'game': '/game',
       '404': '404'
    };
 
@@ -62,6 +64,7 @@ export class RouterApp {
       if ('component' in route) {
          this.elementRoot.innerHTML = route.component;
       }
+
       // TODO aplicar la logica js de las rutas
    }
 
@@ -83,7 +86,6 @@ export class RouterApp {
       });
       return this;
    }
-
    // navigateTo(path) {
    // }
 

@@ -1,6 +1,6 @@
 .layout--game {
    display: flex;
-   /* justify-content: center; */
+   justify-content: center;
    align-items: center;
    flex-direction: column;
 }
@@ -66,10 +66,25 @@
    }
 }
 
+.config__item--logout {
+   .config__logout-icon {
+      color: var(--color-white-100);
+      width: calc(var(--width-icon) - 2rem);
+      height: calc(var(--width-icon) - 2rem);
+      transition: all 0.2s ease-in-out;
+   }
+
+   .config__logout-icon:hover {
+      color: #f4511e;
+   }
+}
+
+
 .layout__main--game {
    padding: 1rem 1rem;
    max-width: 65rem;
-   /* height: 40rem; */
+   height: 40rem;
+   /* TODO : ----> 39rem; */
    overflow: hidden;
 }
 
@@ -80,6 +95,7 @@
 
    .layout__aside {
       position: absolute;
+      display: block;
    }
 
    .config__item {
@@ -97,9 +113,9 @@
    }
 
    .config__item--avatar {
-      .config__avatar-username {
-         display: block;
-      }
+      /* .config__avatar-username { */
+      /* display: block; */
+      /* } */
    }
 }
 

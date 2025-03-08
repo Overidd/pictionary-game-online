@@ -1,9 +1,11 @@
-import { CanvasAndTools } from '../../container/canva';
-import { ChatContainer } from '../../container/chat/chatContainer';
-import { SelectWordContainer } from '../../container/selectWord/selectWordContainer';
-import { UserContainer } from '../../container/user/userContainer';
 import './gamePage.css';
 import gamePageHtml from './gamePage.html?raw';
+
+import { CanvasAndTools } from '../../container/canva';
+import { ChatContainer } from '../../container/chat';
+// import { SelectWordContainer } from '../../container/selectWord/selectWordContainer';
+import { UserContainer } from '../../container/user';
+import { roomService } from '../../factory';
 
 
 export class GamePage extends HTMLDivElement {
@@ -31,7 +33,16 @@ export class GamePage extends HTMLDivElement {
 
    connectedCallback() {
       console.log('GamePage connectedCallback');
+      this.$player.status.textContent = `Jugadores ${roomService.getPlayers().length}/${roomService.getMaxPlayers()}`;
    }
+
+   initEvent() {
+   }
+
+   initValues() {
+   }
+
+
 }
 
 customElements.define('game-page', GamePage, { extends: 'div' });

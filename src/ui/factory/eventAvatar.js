@@ -1,4 +1,4 @@
 import { AvatarService } from "../../application";
-import { ApiAvatar } from "../../infrastructure/apiAvatar";
+import { AvatarApi } from "../../infrastructure/api";
 
-export const avatarService = new AvatarService(ApiAvatar);
+export const avatarService = new AvatarService(AvatarApi);

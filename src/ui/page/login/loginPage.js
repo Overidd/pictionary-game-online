@@ -45,9 +45,14 @@ export class LoginPage extends HTMLFormElement {
       if (!this.validateInput(username)) return;
 
       // TODO: descomentar para crear el usuario
-      userService.createUser(username);
-      this.inputElement.value = '';
-      RouterNavigation.navigateTo(RouterNavigation.path.room);
+      userService.createUser(username)
+         .then(() => {
+            this.inputElement.value = '';
+            RouterNavigation.navigateTo(RouterNavigation.path.room);
+         })
+         .catch((err) => {
+            console.warn('El usuario ya exite');
+         })
    }
 
    handleInput = (e) => {

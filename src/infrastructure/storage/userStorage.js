@@ -1,4 +1,4 @@
-import { UserEntity } from "../domain/entity/UserEntity";
+import { UserEntity } from "../../domain/entity/userEntity";
 
 export class UserStorage {
 
@@ -8,8 +8,7 @@ export class UserStorage {
     */
    // Guardar usuario en localStorage
    static saveUser(user) {
-      localStorage.setItem('user', JSON.stringify(user));
-      return user;
+      localStorage.setItem('user', JSON.stringify(user.toJSON()));
    }
 
    // Obtener la instancia única del usuario

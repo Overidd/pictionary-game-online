@@ -9,7 +9,9 @@ import {
    Eraser,
    Brush,
    PaintBucket,
-   Trash2
+   Trash2,
+    
+   LogOut 
 } from 'lucide';
 
 export const initialIcons = () => {
@@ -23,7 +25,9 @@ export const initialIcons = () => {
          Eraser,
          Brush,
          PaintBucket,
-         Trash2
+         Trash2,
+
+         LogOut
       }
    });
 }

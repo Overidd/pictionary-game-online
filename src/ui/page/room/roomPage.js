@@ -1,5 +1,7 @@
-import { roomDataTest } from '../../../data/roomDataTest';
 import './roomPage.css';
+import { roomDataTest } from '../../../data/roomDataTest';
+import { roomService, userService, wsService } from '../../factory';
+import { RouterNavigation } from '../../router/routerApp';
 import roomPageHtml from './roomPage.html?raw';
 
 class RoomPageEventUI {
@@ -33,16 +35,17 @@ class RoomPageEventUI {
 
 class RoomPageRender {
    /**
-    * @param {Array<object>} data 
+    * @param {Array<RoomEntity>} data 
     * @returns {string}
     */
    static createItem(data) {
-      return data.map(({ id, name, countPlayers, maxPlayers }) => {
+      if (!data) return '';
+      return data.map(({ id, roomName, maxPlayersQuantity, playersQuantity }) => {
          return `
          <li class="room-item" data-id="${id}">
-            <span class="room-item__name">${name}</span>
+            <span class="room-item__name">${roomName}</span>
             <div class="room-item__info">
-               <small class="room-item__player-count">${countPlayers}/${maxPlayers}</small>
+               <small class="room-item__player-count">${playersQuantity}/${maxPlayersQuantity}</small>
                <i class="room-icon__icon" data-lucide="user"></i>
             </div>
          </li>
@@ -76,46 +79,74 @@ export class RoomPage extends HTMLDivElement {
    }
 
    connectedCallback() {
-      this.$roomSearch.list.innerHTML = RoomPageRender.createItem(roomDataTest)
+      wsService.onRooms((room) => {
+         this.$roomSearch.list.innerHTML = RoomPageRender.createItem(room);
+      })
+      // this.$roomSearch.list.innerHTML = RoomPageRender.createItem(roomDataTest)
       new RoomPageEventUI(this).initialEvent();
       this.#initEvents();
    }
 
    #initEvents() {
-      this.$bt.roomSearch.addEventListener('click', this.#handleSearchRoom);
-      this.$bt.roomCreate.addEventListener('click', this.#handleCreateRoom);
+      this.$bt.roomSearch.addEventListener('click', this.handleSearchRoom);
+      this.$bt.roomCreate.addEventListener('click', this.handleCreateRoom);
 
-      this.$roomSearch.inputSearch.addEventListener('input', this.#handleInputSearch);
-      this.$roomCreate.form.addEventListener('submit', this.#handleSubmitCreateRoom);
-      this.$roomSearch.form.addEventListener('submit', this.#handleSubmitCreateRoom);
+      this.$roomSearch.inputSearch.addEventListener('input', this.handleInputSearch);
+      this.$roomCreate.form.addEventListener('submit', this.handleSubmitCreateRoom);
+      // this.$roomSearch.form.addEventListener('submit', this.handleSubmitCreateRoom);
+
+      // Evento de las salas
+      this.$roomSearch.list.addEventListener('click', this.handleJoinRoom);
    }
 
-   #handleInputSearch = (e) => {
+   handleInputSearch = (e) => {
       const { value } = e.target;
 
       if (!value || !value.trim()) {
-         this.$roomSearch.list.innerHTML = RoomPageRender.createItem(roomDataTest);
+         // this.$roomSearch.list.innerHTML = RoomPageRender.createItem(roomDataTest);
          return
       }
       const dataFilterd = roomDataTest.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()));
 
-      this.$roomSearch.list.innerHTML = RoomPageRender.createItem(dataFilterd);
+      // this.$roomSearch.list.innerHTML = RoomPageRender.createItem(dataFilterd);
    }
 
-   #handleSearchRoom = (e) => {
+   handleJoinRoom = async (e) => {
+      if (!e.target.matches('.room-item') || !e.target.hasAttribute('data-id')) return;
+      const roomId = e.target.getAttribute('data-id');
+      const { id } = await userService.getUser();
+      wsService.joinRoom(roomId, id);
+
+      wsService.onJoinRoom(({ payload }) => {
+         const isJoined = roomService.joinRoom(payload);
+         if (!isJoined) return
+         RouterNavigation.navigateTo(RouterNavigation.path.game);
+      })
+   }
+
+   handleSearchRoom = (e) => {
       this.#toggleForm(true);
       // this.dispatchEvent(new RoomPageEvent('room-search-activated', { active: true }));
    };
 
-   #handleCreateRoom = (e) => {
+   handleCreateRoom = (e) => {
       this.#toggleForm(false);
       this.$roomCreate.inputName.focus();
       // this.dispatchEvent(new RoomPageEvent('room-create-activated', { active: true }));
    };
 
-   #handleSubmitCreateRoom = (e) => {
+   handleSubmitCreateRoom = async (e) => {
       e.preventDefault();
-      console.log(e.target);
+      const from = new FormData(e.target);
+      const { id } = await userService.getUser();
+      roomService.create({
+         nameRoom: from.get('name'),
+         creatorId: id,
+         playerQuantity: from.get('players'),
+         roundQuantity: from.get('rounds'),
+      });
+
+      e.target.reset();
    }
 
    #toggleForm(isSearchActive) {

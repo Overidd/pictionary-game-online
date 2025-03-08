@@ -19,18 +19,19 @@
          </div>
       </li>
    </template>
-
+ 
    <ul class="room-list">
+      <!-- Aqui se renderizan las salas desde el servidor -->
    </ul>
 </form>
 
 <form class="room-create" id="room-create-form">
    <input class="room-create__input--name input input__primary" type="text" placeholder="Nombre de la sala"
-      autocomplete="off" autocorrect="off" spellcheck="false">
+      autocomplete="off" autocorrect="off" spellcheck="false" name="name">
 
    <fieldset class="range--player">
       <label class="range__label">Numero de jugadores</label>
-      <input class="range range__input" type="range" min="2" step="2" max="10" value="2">
+      <input class="range range__input" type="range" min="2" step="2" max="10" value="2" name="players">
       <div class="range__details">
          <span class="range__option">2</span>
          <span class="range__option">4</span>
@@ -43,7 +44,7 @@
 
    <fieldset class="range--round">
       <label class="range__label">Numero de rondas</label>
-      <input class="range range__input" type="range" min="1" step="1" max="6" value="1">
+      <input class="range range__input" type="range" min="1" step="1" max="6" value="1" name="rounds">
       <div class="range__details">
          <span class="range__option">1</span>
          <span class="range__option">2</span>

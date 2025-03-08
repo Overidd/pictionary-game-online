@@ -1,4 +1,4 @@
-export class ApiAvatar {
+export class AvatarApi {
    static async getAvatarAsFile(avatarId) {
       const response = await fetch(`${import.meta.env.VITE_API_URL_AVATAR}/svg?seed=${avatarId}`);
       if (!response.ok) throw new Error("Error al obtener avatar");
