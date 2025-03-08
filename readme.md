@@ -7,8 +7,8 @@ Este proyecto es una aplicación web con el enfoque popular juego en linea Picti
 ## Ejecutar el proyecto
 
 ```
-   1: npm run install
-   2: coviar el archivo .env.template a .env
+   1: npm install
+   2: renombrar el archivo .env.template a .env
    3: npm run dev
 ```
 
