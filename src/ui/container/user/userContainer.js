@@ -1,8 +1,7 @@
-import { UserEntity } from '../../../domain/entity';
-import { userMapper } from '../../../infrastructure/mapper';
-import { wsService } from '../../factory';
 import './userContainer.css';
 import usersHtml from './userContainer.html?raw';
+import { userMapper } from '../../../infrastructure/mapper';
+import { wsService } from '../../factory';
 
 
 export class UserContainerRender {
@@ -35,15 +34,9 @@ export class UserContainer extends HTMLUListElement {
    }
 
    connectedCallback() {
-      this.socket();
+      this.initService();
    }
-
-   initEvent() { }
-
-   initValues() {
-
-   }
-   socket() {
+   initService() {
       wsService.onPlayerOnlineRoom(({ payload }) => {
          this.innerHTML = UserContainerRender.renderUser(payload.map(user => userMapper(user)));
       })

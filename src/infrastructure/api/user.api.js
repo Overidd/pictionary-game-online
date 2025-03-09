@@ -10,7 +10,6 @@ export class ApiUser {
     * @returns {UserEntity}
     */
    static async register(username, avatar) {
-      // const response = await fetch('http://localhost:3000/api/user/create', {
       const response = await fetch(`${import.meta.env.VITE_API_URL_GAME}/user/create`, {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },

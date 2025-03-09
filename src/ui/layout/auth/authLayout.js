@@ -18,8 +18,6 @@ export class AuthLayout extends HTMLElement {
          this.mainElement.innerHTML = children;
          return
       }
-      // console.log(new children());
-      // this.mainElement = this.querySelector('.layout__main')
       this.htmlmain.appendChild(new children());
    }
 }

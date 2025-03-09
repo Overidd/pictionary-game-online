@@ -1,7 +1,6 @@
 import './timerContainer.css';
 import timerHtml from './timerContainer.html?raw';
 
-
 export class TimerContainer extends HTMLDivElement {
    constructor() {
       super();
@@ -10,7 +9,6 @@ export class TimerContainer extends HTMLDivElement {
       this.time = this.querySelector('.timer__time')
    }
    connectedCallback() {
-      console.log('TimerContainer connected');
    }
 
    setTime = (time) => {
@@ -18,4 +16,4 @@ export class TimerContainer extends HTMLDivElement {
    }
 }
 
-customElements.define('timer-container', TimerContainer, { extends: 'div' });
+customElements.define('timer-container', TimerContainer, { extends: 'div' }); 

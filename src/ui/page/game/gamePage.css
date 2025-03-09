@@ -32,7 +32,7 @@
    /* height: 100%; */
    /* background-color: aqua; */
    /* display: none; */
-} 
+}
 
 .board {
    grid-row-start: 1;
@@ -44,6 +44,11 @@
       vertical-align: middle;
    }
 
+   .board__status-round {
+      vertical-align: middle;
+      margin-left: 1rem;
+   }
+
    .board__time {
       float: right;
       vertical-align: middle;
@@ -52,7 +57,8 @@
 
 .board__status,
 .board__time,
-.player__status {
+.player__status,
+.board__status-round {
    font-size: 1.1rem;
 }
 
@@ -70,6 +76,50 @@
    position: relative;
 }
 
+
+
+/** --[ STYLES WIN ]-- */
+.win {
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   display: none;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   gap: 2rem;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background-color: var(--color-secondary-100-transparent);
+   border-radius: var(--border-radius-box);
+   color: var(--color-white-100);
+   font-size: 1.5rem;
+}
+
+.win__score {
+   background-color: var(--color-secondary-300);
+   border-radius: var(--border-radius-box);
+   padding: 1rem;
+   font-size: 1.5rem;
+}
+
+.win--active {
+   display: flex;
+}
+
+.win__figure {
+   background-color: #1d1d1d;
+   padding: 1rem;
+   width: 7rem;
+   height: 7rem;
+   border-radius: 50%;
+}
+
+
+
+/** RESPONSIVE */
 @media screen and (min-width: 850px) {
    .game {
       grid-template-columns: 24% 1fr;

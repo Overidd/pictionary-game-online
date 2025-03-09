@@ -7,12 +7,11 @@ export class WebSocketClient {
    socket;
    url;
    reconnectAttempts = 0;
-   maxReconnectAttempts = 4; // Número máximo de intentos de reconexión
-   reconnectInterval = 5000; // Tiempo entre intentos de reconexión (5s)
-   isManualClose = false; // Para evitar reconectar en cierres intencionales
+   maxReconnectAttempts = 4; // máximo de intentos 
+   reconnectInterval = 5000; // Tiempo estimado 5s
+   isManualClose = false; // Para evitar reconectar en cierres casos
 
    constructor() { }
-
 
    static get getInstance() {
       if (!WebSocketClient.instance) {
@@ -21,10 +20,6 @@ export class WebSocketClient {
       return WebSocketClient.instance;
    }
 
-   /**
-    * Conectar al WebSocket
-    * @param {string} url 
-    */
    connect(url) {
       this.url = url ?? localStorage.getItem('ws_url'); // Usa la URL almacenada si existe
       if (!this.url) {
@@ -98,6 +93,18 @@ export class WebSocketClient {
             // Para recibir la imagen del canvas
             eventEmitter.emit('ws:canvasImageRoom', data);
          }
+         if (data.type === EtypeWss.CHAT_MESSAGE_ROOM) {
+            // Para recibir el mensaje del chat 
+            eventEmitter.emit('ws:chatMessageRoom', data);
+         }
+
+         if (data.type === EtypeWss.NEXT_ROUND_ROOM) {
+            eventEmitter.emit('ws:nextRoundRoom', data);
+         }
+
+         if (data.type === EtypeWss.END_GAME_ROOM) {
+            eventEmitter.emit('ws:endGameRoom', data);
+         }
 
          //* Mensaje de Error
          if (data.type === EtypeWss.ERROR_START_GAME_ROOM) {
@@ -107,7 +114,6 @@ export class WebSocketClient {
          if (data.type === EtypeWss.ERROR) {
             eventEmitter.emit('ws:error', data);
          }
-
       };
 
       this.socket.onclose = () => {
@@ -115,23 +121,18 @@ export class WebSocketClient {
 
          eventEmitter.emit('ws:disconnected', null);
 
-         // Intentar reconectar si la desconexión no fue manual
          if (!this.isManualClose) {
             this.reconnect();
          }
       };
 
       this.socket.onerror = (error) => {
-         console.error('Error en WebSocket:', error);
-         eventEmitter.emit('ws:error', error);
+         console.error('Error al conectarse a WebSocket:');
       };
-
       return true
    }
 
-   /**
-    * Intentar reconectar con límites
-    */
+   // reconectar 
    reconnect() {
       if (this.reconnectAttempts < this.maxReconnectAttempts) {
          this.reconnectAttempts += 1;
@@ -143,23 +144,14 @@ export class WebSocketClient {
       }
    }
 
-   /**
-    * Enviar mensaje por WebSocket
-    * @param {Object} message 
-    */
    sendMessage({ type, payload }) {
       if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-
          this.socket.send(JSON.stringify({ type, payload }));
-
-      } else {
-         console.warn('El WebSocket no está conectado.');
+         return
       }
+      console.warn('El WebSocket parece no estar conectado.');
    }
 
-   /**
-    * Cerrar la conexión manualmente
-    */
    close() {
       this.isManualClose = true;
       this.socket?.close();

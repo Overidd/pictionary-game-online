@@ -1,7 +1,7 @@
-import { userService, wsService } from '../../factory';
-import { CustomEvents } from '../../router/customEvents';
 import './canvaTool.container.css';
 import canvaToolHtml from './canvaTool.container.html?raw';
+import { userService, wsService } from '../../factory';
+import { CustomEvents } from '../../router/customEvents';
 
 
 class PaintBucketCanvas {
@@ -92,7 +92,6 @@ class CustomCanvas extends HTMLCanvasElement {
       PAINTBUCKET: 'paintBucket',
    }
 
-   // Variable para saber si el usuario esta dibujando
    constructor(width = 500, height = 300) {
       super();
       this.undoImages = [];
@@ -108,12 +107,10 @@ class CustomCanvas extends HTMLCanvasElement {
       this.modesDraw = this.MODESDRAW.DRAW;
 
 
-      // retorna un objeto CanvasRenderingContext2D que representa un contexto de renderizado de dos dimensiones.
       this.ctx = this.getContext('2d');
       this.paintBucketCanvas = new PaintBucketCanvas(this, this.ctx);
       this.eventCanvas = new CustomEvents('canvasImage', null);
 
-      // inicializamos los eventos
       this.initEvent();
 
       this.ctx.lineWidth = 2;
@@ -445,7 +442,6 @@ export class CanvasAndTools extends HTMLDivElement {
 
    handleCanvasImage = (e) => {
       const { data } = e.detail;
-      console.log(data, '----');
    }
 
    // Manejador de click afuera
@@ -527,19 +523,12 @@ export class CanvasAndTools extends HTMLDivElement {
    };
 
    _resizeCanvas = () => {
-      const isMobile = window.innerWidth < 768; // Definir breakpoint para móviles
-      // const newWidth = isMobile ? 320 : window.innerWidth > 1380 ? 690 : 450;
-      // const newHeight = isMobile ? 400 : window.innerWidth > 1380 ? 480 : 460;
+      const isMobile = window.innerWidth < 768; 
 
       if (isMobile) {
-         // Si está en móvil, reiniciar el canvas completamente
          this.removeChild(this.canvas);
          this.canvas = new CustomCanvas(320, 330);
          this.appendChild(this.canvas);
-      } else {
-         // Si no está en móvil, solo cambiar el tamaño sin reinstanciar
-         // this.canvas.width = newWidth;
-         // this.canvas.height = newHeight;
       }
    };
 
@@ -562,6 +551,11 @@ export class CanvasAndTools extends HTMLDivElement {
       this.isDisabled = false;
       this.canvas.style.pointerEvents = 'auto';
    }
+
+   clearDrawing() {
+      this.canvas.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+   }
+
    updateBrushSizePreview(size) {
       this.$bt.brushSize.style.setProperty('--brush-size-preview', `${this.strokeSize[size]}px`);
    }

@@ -12,7 +12,6 @@ export const gameService = new GameService();
 //    }
 // });
 
-
 // Evento de reconexión a WebSocket
 window.addEventListener('DOMContentLoaded', (e) => {
    const isConnected = WebSocketClient.getInstance.connect()
@@ -21,23 +20,10 @@ window.addEventListener('DOMContentLoaded', (e) => {
    }
 })
 
-// wsService.onPlayerOnlineRoom(({ payload }) => {
-//    gameService.setAllPlayers(payload);
-// })
-
-// wsService.onPlayerQuantityOnlineRoom(({ payload }) => {
-//    gameService.setPlayerQuantity(payload);
-// })
-
 wsService.onError((error) => {
    console.warn('Error en WebSocket:', error);
 })
 
-// wsService.onNewRoom((room) => {
-//    console.log('Nueva sala creada:', room);
-// });
-
-// Listener para cualquier mensaje recibido
 wsService.onMessage((data) => {
    console.log('Mensaje recibido del servidor:', data);
 });

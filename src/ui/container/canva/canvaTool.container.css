@@ -26,6 +26,7 @@
    background-color: #f0f0f0;
    text-align: center;
    width: 2.2rem;
+   height: 2.2rem;
    padding: 0.2rem;
    cursor: pointer;
    border-radius: 50%;
@@ -35,6 +36,10 @@
    [data-lucide] {
       color: var(--color-primary-100);
    }
+   img {
+      filter: invert(40%) sepia(10%) 
+  }
+  
 }
 
 .tool__bt:hover {

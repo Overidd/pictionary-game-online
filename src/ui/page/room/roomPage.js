@@ -1,8 +1,8 @@
 import './roomPage.css';
-import { roomDataTest } from '../../../data/roomDataTest';
-import { roomService, userService, wsService } from '../../factory';
-import { RouterNavigation } from '../../router/routerApp';
 import roomPageHtml from './roomPage.html?raw';
+import { roomDataTest } from '../../../data/roomDataTest';
+import { RouterNavigation } from '../../router/routerApp';
+import { roomService, userService, wsService } from '../../factory';
 
 class RoomPageEventUI {
    /**
@@ -32,7 +32,6 @@ class RoomPageEventUI {
    }
 }
 
-
 class RoomPageRender {
    /**
     * @param {Array<RoomEntity>} data 
@@ -54,7 +53,6 @@ class RoomPageRender {
    }
 }
 
-// 🎮 Componente Web
 export class RoomPage extends HTMLDivElement {
    constructor() {
       super();
@@ -79,61 +77,61 @@ export class RoomPage extends HTMLDivElement {
    }
 
    connectedCallback() {
+      this.initListener();
+      this.initService();
+      new RoomPageEventUI(this).initialEvent();
+   }
+
+   disconnectedCallback() {
+      this.bindEvents('remove');
+   }
+
+   initListener() {
+      this.bindEvents('add');
+   }
+
+   bindEvents(action) {
+      const method = action === 'add' ? 'addEventListener' : 'removeEventListener';
+      this.$bt.roomSearch[method]('click', this.handleSearchRoom);
+      this.$bt.roomCreate[method]('click', this.handleCreateRoom);
+      this.$roomSearch.inputSearch[method]('input', this.handleInputSearch);
+      this.$roomCreate.form[method]('submit', this.handleSubmitCreateRoom);
+      this.$roomSearch.list[method]('click', this.handleJoinRoom);
+   }
+
+   initService() {
       wsService.onRooms((room) => {
          this.$roomSearch.list.innerHTML = RoomPageRender.createItem(room);
       })
-      // this.$roomSearch.list.innerHTML = RoomPageRender.createItem(roomDataTest)
-      new RoomPageEventUI(this).initialEvent();
-      this.#initEvents();
    }
 
-   #initEvents() {
-      this.$bt.roomSearch.addEventListener('click', this.handleSearchRoom);
-      this.$bt.roomCreate.addEventListener('click', this.handleCreateRoom);
-
-      this.$roomSearch.inputSearch.addEventListener('input', this.handleInputSearch);
-      this.$roomCreate.form.addEventListener('submit', this.handleSubmitCreateRoom);
-      // this.$roomSearch.form.addEventListener('submit', this.handleSubmitCreateRoom);
-
-      // Evento de las salas
-      this.$roomSearch.list.addEventListener('click', this.handleJoinRoom);
-   }
-
+   //* --[ Metodos de eventos ]--
    handleInputSearch = (e) => {
       const { value } = e.target;
-
       if (!value || !value.trim()) {
          // this.$roomSearch.list.innerHTML = RoomPageRender.createItem(roomDataTest);
          return
       }
       const dataFilterd = roomDataTest.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()));
-
       // this.$roomSearch.list.innerHTML = RoomPageRender.createItem(dataFilterd);
    }
-
-   handleJoinRoom = (e) => {
-      if (!e.target.matches('.room-item') || !e.target.hasAttribute('data-id')) return;
-      const roomId = e.target.getAttribute('data-id');
-      const { id } = userService.getUser();
-      wsService.joinRoom(roomId, id);
-
-      wsService.onJoinRoom(({ payload }) => {
-         if (!payload) return
-         RouterNavigation.navigateTo(RouterNavigation.path.game);
-      })
-   }
-
    handleSearchRoom = (e) => {
       this.#toggleForm(true);
-      // this.dispatchEvent(new RoomPageEvent('room-search-activated', { active: true }));
    };
 
    handleCreateRoom = (e) => {
       this.#toggleForm(false);
       this.$roomCreate.inputName.focus();
-      // this.dispatchEvent(new RoomPageEvent('room-create-activated', { active: true }));
    };
 
+   #toggleForm(isSearchActive) {
+      this.$roomSearch.form.classList.toggle('room-search--active', isSearchActive);
+      this.$roomCreate.form.classList.toggle('room-create--active', !isSearchActive);
+      this.$bt.roomSearch.classList.toggle('room__button--active', isSearchActive);
+      this.$bt.roomCreate.classList.toggle('room__button--active', !isSearchActive);
+   }
+
+   //* --[ Metodos de servicios ]--
    handleSubmitCreateRoom = (e) => {
       e.preventDefault();
       const from = new FormData(e.target);
@@ -144,15 +142,18 @@ export class RoomPage extends HTMLDivElement {
          playerQuantity: from.get('players'),
          roundQuantity: from.get('rounds'),
       });
-
       e.target.reset();
    }
 
-   #toggleForm(isSearchActive) {
-      this.$roomSearch.form.classList.toggle('room-search--active', isSearchActive);
-      this.$roomCreate.form.classList.toggle('room-create--active', !isSearchActive);
-      this.$bt.roomSearch.classList.toggle('room__button--active', isSearchActive);
-      this.$bt.roomCreate.classList.toggle('room__button--active', !isSearchActive);
+   handleJoinRoom = (e) => {
+      if (!e.target.matches('.room-item') || !e.target.hasAttribute('data-id')) return;
+      const roomId = e.target.getAttribute('data-id');
+      const { id } = userService.getUser();
+      wsService.joinRoom(roomId, id);
+      wsService.onJoinRoom(({ payload }) => {
+         if (!payload) return
+         RouterNavigation.navigateTo(RouterNavigation.path.game);
+      })
    }
 }
 

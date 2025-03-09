@@ -49,6 +49,12 @@ export class WebSocketService {
    sendCanvasImage(userId, base64Image) {
       this.wsClient.sendMessage({ type: EtypeWss.CANVAS_IMAGE_ROOM, payload: { userId, base64Image } });
    }
+   sendMessageRoom(userId, message) {
+      this.wsClient.sendMessage({ type: EtypeWss.CHAT_MESSAGE_ROOM, payload: { userId, message } });
+   }
+   sendExitRoom(userId) {
+      this.wsClient.sendMessage({ type: EtypeWss.EXIT_ROOM, payload: { userId } });
+   }
 
    /**
     * @param {(data: any) => void} callback 
@@ -99,6 +105,15 @@ export class WebSocketService {
    }
    onCanvasImageRoom(callback) {
       eventEmitter.on('ws:canvasImageRoom', callback);
+   }
+   onChatMessageRoom(callback) {
+      eventEmitter.on('ws:chatMessageRoom', callback);
+   }
+   onNextRoundRoom(callback) {
+      eventEmitter.on('ws:nextRoundRoom', callback);
+   }
+   onEndGameRoom(callback) {
+      eventEmitter.on('ws:endGameRoom', callback);
    }
 
    onErrorStartGameRoom(callback) {

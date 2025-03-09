@@ -16,7 +16,6 @@ export class GameLayout extends HTMLDivElement {
          avatar: this.querySelector('.config__avatar-img'),
          username: this.querySelector('.config__avatar-username'),
       }
-
       this.$logout = this.querySelector('.config__item--logout');
 
       this.#renderChildren(children);
@@ -31,6 +30,10 @@ export class GameLayout extends HTMLDivElement {
       this.$logout.addEventListener('click', this.handleLogout);
    }
 
+   disconnectedCallback() {
+      this.$logout.removeEventListener('click', this.handleLogout);
+   }
+
    handleLogout = (e) => {
       e.preventDefault();
       userService.logout();
@@ -43,8 +46,6 @@ export class GameLayout extends HTMLDivElement {
          this.htmlmain.innerHTML = children;
          return
       }
-      // console.log(new children());
-      // this.mainElement = this.querySelector('.layout__main')
       this.htmlmain.appendChild(new children());
    }
 

@@ -33,7 +33,6 @@ export class RouterNavigation {
    };
 
    static navigateTo(path) {
-      console.log(path);
       history.pushState({}, '', path);
 
       window.dispatchEvent(new CustomEvent('router-navigate'));
@@ -101,93 +100,3 @@ export class RouterApp {
       })
    }
 }
-
-
-
-
-
-// import { createLayout } from "./layout.js";
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   createLayout(); // Renderiza el Layout
-//   loadPage(window.location.pathname); // Carga la página actual
-
-//   document.body.addEventListener("click", (e) => {
-//     if (e.target.matches("[data-link]")) {
-//       e.preventDefault();
-//       const url = e.target.getAttribute("href");
-//       history.pushState({}, "", url);
-//       loadPage(url);
-//     }
-//   });
-
-//   window.addEventListener("popstate", () => {
-//     loadPage(window.location.pathname);
-//   });
-// });
-
-// async function loadPage(route) {
-//   const content = document.getElementById("content");
-//   try {
-//     const response = await fetch(`/src/pages${route}.html`);
-//     content.innerHTML = await response.text();
-//   } catch {
-//     content.innerHTML = "<h2>Página no encontrada</h2>";
-//   }
-// }
-
-
-
-
-// import { setupContact } from "./pages/contact.js";
-
-// const routes = {
-//   "/": "pages/home.html",
-//   "/about": "pages/about.html",
-//   "/contact": "pages/contact.html",
-// };
-
-// function navigateTo(url) {
-//   history.pushState(null, null, url);
-//   renderPage();
-// }
-
-// async function renderPage() {
-//   const path = window.location.pathname;
-//   const pageUrl = routes[path] || routes["/"];
-
-//   try {
-//     const response = await fetch(pageUrl);
-//     const html = await response.text();
-//     document.getElementById("app").innerHTML = html;
-
-//     // Ejecutar scripts específicos según la ruta
-//     if (path === "/contact") {
-//       setupContact();
-//     }
-//   } catch (error) {
-//     console.error("Error cargando la página:", error);
-//   }
-// }
-
-// // Capturar clics en los enlaces
-// document.addEventListener("click", (e) => {
-//   if (e.target.matches("[data-link]")) {
-//     e.preventDefault();
-//     navigateTo(e.target.href);
-//   }
-// });
-
-// // Manejar el botón "atrás"
-// window.addEventListener("popstate", renderPage);
-
-// // Cargar la página inicial
-// renderPage();
-
-
-
-
-
-
-
-

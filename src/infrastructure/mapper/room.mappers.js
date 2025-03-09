@@ -3,7 +3,6 @@ import { RoomEntity } from "../../domain/entity";
 
 
 export const roomsMapper = (rooms = []) => {
-   // console.log(rooms);
    return rooms.map(({ id, name, creatorId, players, maxPlayerQuantity, roundQuantity, playerQuantity }) => {
 
       return RoomEntity.fromObject({

@@ -22,8 +22,6 @@ export class ActionContainer extends HTMLDivElement {
    }
 
    //* --[ Metodos de inicializacion ]--
-   initValues() { }
-
    initService() {
       wsService.onIsPlayerCreatorRoom(({ payload: { isCreator } }) => {
          if (isCreator) {
