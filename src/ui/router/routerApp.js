@@ -36,7 +36,7 @@ export class RouterNavigation {
       console.log(path);
       history.pushState({}, '', path);
 
-      window.dispatchEvent(new CustomEvent("router-navigate"));
+      window.dispatchEvent(new CustomEvent('router-navigate'));
    }
 }
 
@@ -64,8 +64,6 @@ export class RouterApp {
       if ('component' in route) {
          this.elementRoot.innerHTML = route.component;
       }
-
-      // TODO aplicar la logica js de las rutas
    }
 
    onInit() {

@@ -45,7 +45,7 @@ export class WebSocketClient {
       this.socket.onmessage = (event) => {
          const data = JSON.parse(event.data);
 
-         if (data.type === EtypeWss.NEWROOM) {
+         if (data.type === EtypeWss.NEW_ROOM) {
             eventEmitter.emit('ws:newRoom', data);
          }
 
@@ -53,17 +53,61 @@ export class WebSocketClient {
             eventEmitter.emit('ws:rooms', roomsMapper(data.payload));
          }
 
-         if (data.type === EtypeWss.JOINROOM) {
+         if (data.type === EtypeWss.JOIN_ROOM) {
             eventEmitter.emit('ws:joinRoom', data);
+         }
+
+         if (data.type === EtypeWss.PLAYERS_ONLINE_ROOM) {
+            eventEmitter.emit('ws:playersOnlineRoom', data);
+         }
+
+         if (data.type === EtypeWss.ROOM_STATE) {
+            eventEmitter.emit('ws:roomState', data);
+         }
+         if (data.type === EtypeWss.PLAYERS_QUANTITY_ONLINE_ROOM) {
+            eventEmitter.emit('ws:playersQuantityOnlineRoom', data);
+         }
+         if (data.type === EtypeWss.IS_PLAYER_CREATOR_ROOM) {
+            eventEmitter.emit('ws:isPlayerCreatorRoom', data);
+         }
+
+         if (data.type === EtypeWss.START_GAME_ROOM_OK) { // Para iniciar el juego
+            eventEmitter.emit('ws:startGameRoomOk', data);
+         }
+
+         if (data.type === EtypeWss.INTERVAL_START_GAME_ROOM) {
+            // Para recibir el intervalo antes de iniciar el juego
+            eventEmitter.emit('ws:intervalStartGameRoom', data);
+         }
+
+         if (data.type === EtypeWss.WORD_SELECTED_ROOM) {
+            // Para el jugador selecionado como dibujante
+            eventEmitter.emit('ws:wordSelectedRoom', data);
+         }
+
+         if (data.type === EtypeWss.ROOM_STATE_GAME) {
+            // Para recibir el estado del juego
+            eventEmitter.emit('ws:roomStateGame', data);
+         }
+
+         if (data.type === EtypeWss.CURRENT_ROUND_TIME_ROOM) {
+            // Para recibir el temporizador de la ronda
+            eventEmitter.emit('ws:currentRoundTimeRoom', data);
+         }
+         if (data.type === EtypeWss.CANVAS_IMAGE_ROOM) {
+            // Para recibir la imagen del canvas
+            eventEmitter.emit('ws:canvasImageRoom', data);
+         }
+
+         //* Mensaje de Error
+         if (data.type === EtypeWss.ERROR_START_GAME_ROOM) {
+            eventEmitter.emit('ws:errorStartGameRoom', data);
          }
 
          if (data.type === EtypeWss.ERROR) {
             eventEmitter.emit('ws:error', data);
          }
 
-         if (data.type === EtypeWss.PLAYERSONLINEROOM) {
-            eventEmitter.emit('ws:playersOnlineRoom', data);
-         }
       };
 
       this.socket.onclose = () => {

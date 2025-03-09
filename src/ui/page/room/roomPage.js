@@ -40,12 +40,12 @@ class RoomPageRender {
     */
    static createItem(data) {
       if (!data) return '';
-      return data.map(({ id, roomName, maxPlayersQuantity, playersQuantity }) => {
+      return data.map(({ id, roomName, maxPlayerQuantity, playerQuantity }) => {
          return `
          <li class="room-item" data-id="${id}">
             <span class="room-item__name">${roomName}</span>
             <div class="room-item__info">
-               <small class="room-item__player-count">${playersQuantity}/${maxPlayersQuantity}</small>
+               <small class="room-item__player-count">${playerQuantity}/${maxPlayerQuantity}</small>
                <i class="room-icon__icon" data-lucide="user"></i>
             </div>
          </li>
@@ -111,15 +111,14 @@ export class RoomPage extends HTMLDivElement {
       // this.$roomSearch.list.innerHTML = RoomPageRender.createItem(dataFilterd);
    }
 
-   handleJoinRoom = async (e) => {
+   handleJoinRoom = (e) => {
       if (!e.target.matches('.room-item') || !e.target.hasAttribute('data-id')) return;
       const roomId = e.target.getAttribute('data-id');
-      const { id } = await userService.getUser();
+      const { id } = userService.getUser();
       wsService.joinRoom(roomId, id);
 
       wsService.onJoinRoom(({ payload }) => {
-         const isJoined = roomService.joinRoom(payload);
-         if (!isJoined) return
+         if (!payload) return
          RouterNavigation.navigateTo(RouterNavigation.path.game);
       })
    }
@@ -135,10 +134,10 @@ export class RoomPage extends HTMLDivElement {
       // this.dispatchEvent(new RoomPageEvent('room-create-activated', { active: true }));
    };
 
-   handleSubmitCreateRoom = async (e) => {
+   handleSubmitCreateRoom = (e) => {
       e.preventDefault();
       const from = new FormData(e.target);
-      const { id } = await userService.getUser();
+      const { id } = userService.getUser();
       roomService.create({
          nameRoom: from.get('name'),
          creatorId: id,

@@ -7,15 +7,16 @@ export class UserEntity {
       name,
       score = 0,
       avatar,
-      isDrawing = false
+      isDrawing = false,
+      isReady = false,
    }) {
       this.id = id;
       this.name = name;
       this.score = score;
       this.avatar = avatar;
       this.isDrawing = isDrawing
+      this.isReady = isReady
    }
-
 
    set addScore(score) {
       this.score += score;

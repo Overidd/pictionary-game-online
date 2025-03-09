@@ -12,6 +12,7 @@
    --height-icon: 4.2rem;
    right: 2rem;
    top: 2rem;
+   z-index: 10;
 }
 
 .config__item {

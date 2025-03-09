@@ -1,17 +1,13 @@
-import { roomMapper, roomsMapper } from "../../infrastructure/mapper/room.mappers";
-import { userMapper } from "../../infrastructure/mapper/user.mappers";
+import { roomMapper, userMapper } from "../../infrastructure/mapper";
 
 export class RoomService {
    // Instancia única del singleton
    static instance = null;
 
-   // Sala actual que el usuario se unió
-
    /**
     * @param {RoomApi} RoomApi
    */
    constructor(RoomApi) {
-      this.currentRooml = null;
       this.roomApi = RoomApi;
    }
 
@@ -28,18 +24,16 @@ export class RoomService {
       playerQuantity,
       roundQuantity,
    }) {
-      const room = await this.roomApi.create(
+      await this.roomApi.create(
          nameRoom,
          creatorId,
          playerQuantity,
          roundQuantity
       );
-      console.log(room);
    }
 
    joinRoom({ players, ...data }) {
       try {
-
          this.currentRoom = roomMapper({
             ...data,
             players: players.map(player => userMapper(player)),
@@ -50,18 +44,5 @@ export class RoomService {
          console.error(`Error interno: ${error}`);
          return false
       }
-   }
-
-   getPlayers() {
-      return this.currentRoom?.players || [];
-   }
-
-   getMaxPlayers() {
-      return this.currentRoom?.maxPlayersQuantity || 0;
-   }
-
-
-   getCurrentRoom() {
-      return this.currentRoom;
    }
 }

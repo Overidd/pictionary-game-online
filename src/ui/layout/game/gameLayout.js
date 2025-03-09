@@ -50,13 +50,10 @@ export class GameLayout extends HTMLDivElement {
 
 
    loadingUser() {
-      userService.getUser()
-         .then(({ avatar, name }) => {
-            this.$user.avatar.src = avatar;
-            this.$user.username.textContent = name;
-         })
+      const { avatar, name } = userService.getUser()
+      this.$user.avatar.src = avatar;
+      this.$user.username.textContent = name;
    }
-
 }
 
 customElements.define('game-layout', GameLayout, { extends: 'div' });

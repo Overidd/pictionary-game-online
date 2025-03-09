@@ -1,3 +1,5 @@
+import { userService, wsService } from '../../factory';
+import { CustomEvents } from '../../router/customEvents';
 import './canvaTool.container.css';
 import canvaToolHtml from './canvaTool.container.html?raw';
 
@@ -109,6 +111,7 @@ class CustomCanvas extends HTMLCanvasElement {
       // retorna un objeto CanvasRenderingContext2D que representa un contexto de renderizado de dos dimensiones.
       this.ctx = this.getContext('2d');
       this.paintBucketCanvas = new PaintBucketCanvas(this, this.ctx);
+      this.eventCanvas = new CustomEvents('canvasImage', null);
 
       // inicializamos los eventos
       this.initEvent();
@@ -196,7 +199,6 @@ class CustomCanvas extends HTMLCanvasElement {
 
       [this.startX, this.startY] = [x, y];
       [this.lastX, this.lastY] = [x, y];
-
       this.#appendHistoryImage(this.ctx.getImageData(0, 0, this.width, this.height));
       this.redoImages = [];
    };
@@ -237,6 +239,8 @@ class CustomCanvas extends HTMLCanvasElement {
       if (this.ctx) {
          this.ctx.closePath();
       }
+      const dataUrl = this.toDataURL("image/png");
+      wsService.sendCanvasImage(userService.getUser().id, dataUrl);
    }
 
    handleKeyDown = (e) => {
@@ -252,11 +256,21 @@ class CustomCanvas extends HTMLCanvasElement {
       this.ctx.putImageData(imageData, 0, 0);
    }
 
+   setImageBase64(base64Image) {
+      const img = new Image();
+      img.src = base64Image;
+      img.onload = () => {
+         this.ctx.clearRect(0, 0, this.width, this.height);
+         this.ctx.drawImage(img, 0, 0);
+      };
+   }
+
    #appendHistoryImage(imageData) {
       if (this.undoImages.length > 10) {
          this.undoImages.shift()
       }
       this.undoImages.push(imageData)
+      // this.eventCanvas.dispatchEvent(imageData);
    }
 
    undo() {
@@ -355,6 +369,7 @@ export class CanvasAndTools extends HTMLDivElement {
       this.innerHTML = canvaToolHtml;
       // this.canvas = new CustomCanvas(680, 460);
       this.canvas = new CustomCanvas(650, 460);
+      this.isDisabled = false;
       this.appendChild(this.canvas);
 
       this.$bt = {
@@ -375,6 +390,7 @@ export class CanvasAndTools extends HTMLDivElement {
       this.initEvent();
       this.initValue()
       this.resizeCanvas();
+      this.disableCanvas();
    }
 
    initEvent() {
@@ -387,6 +403,10 @@ export class CanvasAndTools extends HTMLDivElement {
       this.$input.color.addEventListener('change', this.handleColorChange);
       window.addEventListener("resize", this.resizeCanvas); //*
       document.addEventListener('click', this.handleClickOutside);
+      // document.addEventListener('canvasImage', this.handleCanvasImage);
+   }
+   connectedCallback() {
+      this.initService();
    }
 
    disconnectedCallback() {
@@ -399,12 +419,19 @@ export class CanvasAndTools extends HTMLDivElement {
       this.$input.color.removeEventListener('change', this.handleColorChange);
       window.removeEventListener("resize", this.resizeCanvas); //*
       document.removeEventListener('click', this.handleClickOutside);
+      // document.removeEventListener('canvasImage', this.handleCanvasImage);
    }
 
    initValue() {
       this.$input.color.parentElement.style.backgroundColor = this.canvas.getColor();
       this.toggleActiveBt(this.$bt.pencil);
       this.canvas.setMode(this.canvas.MODESDRAW.DRAW);
+   }
+
+   initService() {
+      wsService.onCanvasImageRoom(({ payload: { base64Image } }) => {
+         this.canvas.setImageBase64(base64Image);
+      })
    }
 
    /**
@@ -414,6 +441,11 @@ export class CanvasAndTools extends HTMLDivElement {
       Object.values(this.$bt).forEach(bt =>
          bt.classList.toggle('tool__bt--active', bt === elementBt)
       );
+   }
+
+   handleCanvasImage = (e) => {
+      const { data } = e.detail;
+      console.log(data, '----');
    }
 
    // Manejador de click afuera
@@ -511,14 +543,25 @@ export class CanvasAndTools extends HTMLDivElement {
       }
    };
 
-
-
    setBrushSize(mode, size) {
       this.canvas.setMode(mode);
       this.canvas.setSizeLine(this.strokeSize[size] || 5);
       this.updateBrushSizePreview(size);
    }
 
+   /**
+    * 
+    * @param {boolean} status 
+    */
+   disableCanvas() {
+      this.isDisabled = true;
+      this.canvas.style.pointerEvents = 'none'; // Evita la interacción con el canvas
+   }
+
+   enableCanvas() {
+      this.isDisabled = false;
+      this.canvas.style.pointerEvents = 'auto';
+   }
    updateBrushSizePreview(size) {
       this.$bt.brushSize.style.setProperty('--brush-size-preview', `${this.strokeSize[size]}px`);
    }

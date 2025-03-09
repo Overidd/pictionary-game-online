@@ -15,8 +15,8 @@ export class RoomApi {
          body: JSON.stringify({
             name: nameRoom,
             creatorId: creatorId,
-            player_quantity: playerQuantity,
-            round_quantity: roundQuantity
+            maxPlayerQuantity: playerQuantity,
+            roundQuantity: roundQuantity
          }),
       });
       const room = await response.json();

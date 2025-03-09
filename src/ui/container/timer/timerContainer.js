@@ -5,13 +5,17 @@ import timerHtml from './timerContainer.html?raw';
 export class TimerContainer extends HTMLDivElement {
    constructor() {
       super();
-      this.shadowRoot.innerHTML = timerHtml;
+      this.innerHTML = timerHtml;
       this.classList.add('timer');
+      this.time = this.querySelector('.timer__time')
+   }
+   connectedCallback() {
+      console.log('TimerContainer connected');
    }
 
-   connectedCallback() {   
-      console.log('TimerContainer connected');
+   setTime = (time) => {
+      this.time.textContent = time;
    }
 }
 
-customElements.define('timer-container', TimerContainer);
+customElements.define('timer-container', TimerContainer, { extends: 'div' });

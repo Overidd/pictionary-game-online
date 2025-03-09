@@ -38,6 +38,10 @@
    width: 1.4rem;
 }
 
+.user--ready {
+   background-color: #3380d8a4;
+}
+
 @media screen and (min-width: 768px) {
    .users {
       font-size: 1rem;

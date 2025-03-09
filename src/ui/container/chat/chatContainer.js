@@ -18,10 +18,10 @@ export class ChatContainer extends HTMLFormElement {
       this.addEventListener('submit', this.handleMessageSumit);
    }
 
-   handleMessageSumit = async (e) => {
+   handleMessageSumit = (e) => {
       e.preventDefault();
 
-      const { name } = await userService.getUser();
+      const { name } = userService.getUser()
       const message = `
          <li class="chat__item">
             <strong class="chat__username">${name}</strong>

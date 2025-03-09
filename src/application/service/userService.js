@@ -38,7 +38,7 @@ export class UserService {
    }
 
    // Obtener usuario actual
-   async getUser() {
+   getUser() {
       return this.user;
    }
 
