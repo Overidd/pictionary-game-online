@@ -13,12 +13,12 @@ export const gameService = new GameService();
 // });
 
 // Evento de reconexión a WebSocket
-window.addEventListener('DOMContentLoaded', (e) => {
-   const isConnected = WebSocketClient.getInstance.connect()
-   if (!isConnected) {
-      RouterNavigation.navigateTo('login');
-   }
-})
+// window.addEventListener('DOMContentLoaded', (e) => {
+//    const isConnected = WebSocketClient.getInstance.connect()
+//    if (!isConnected) {
+//       RouterNavigation.navigateTo('login');
+//    }
+// })
 
 wsService.onError((error) => {
    console.warn('Error en WebSocket:', error);
