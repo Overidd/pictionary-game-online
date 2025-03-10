@@ -5,10 +5,11 @@ Este proyecto es una aplicación web con el enfoque popular juego en linea Picti
 
 
 ## Ejecutar el proyecto
+⚠️ El proyecto esta corriendo en Netlify, seria ideal probar en dos navegadores para la intraccion en tiempo real
 
 ```
    1: npm install
-   2: renombrar el archivo .env.template a .env
+   2: renombrar el archivo .env.template a .env 
    3: npm run dev
 ```
 
@@ -29,6 +30,7 @@ El proyecto esta desarrollado con Programación Orientada a Objetos POO y utiliz
 ## Arquitectura
 La aplicación sigue el enfoque de arquitectura limpia, asegurando un código modular, mantenible y escalable
 La parte UI sigue el enfoque de los componentes como en react y react-ruter para la navegación. 
+Uso de la metologia bem para la escritura del CSS
 
 ## Diseño del proyecto
 [Ver el PDF](./design.pdf)
