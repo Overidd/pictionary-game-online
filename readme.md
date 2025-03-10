@@ -6,6 +6,7 @@ Este proyecto es una aplicación web con el enfoque popular juego en linea Picti
 
 ## Ejecutar el proyecto
 ⚠️ El proyecto esta corriendo en Netlify, seria ideal probar en dos navegadores para la intraccion en tiempo real
+https://helpful-parfait-0dac9f.netlify.app/
 
 ```
    1: npm install
