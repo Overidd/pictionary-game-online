@@ -39,13 +39,14 @@ class RoomPageRender {
     */
    static createItem(data) {
       if (!data) return '';
-      return data.map(({ id, roomName, maxPlayerQuantity, playerQuantity }) => {
+      return data.map(({ id, roomName, maxPlayerQuantity, playerQuantity, roundQuantity }) => {
          return `
          <li class="room-item" data-id="${id}">
             <span class="room-item__name">${roomName}</span>
             <div class="room-item__info">
+               <small class="room-item__round-count">Rondas ${roundQuantity}</small>
                <small class="room-item__player-count">${playerQuantity}/${maxPlayerQuantity}</small>
-               <i class="room-icon__icon" data-lucide="user"></i>
+               <img class="room-item__icon" src="icon/user.svg" alt="avatar username">
             </div>
          </li>
          `
@@ -100,6 +101,7 @@ export class RoomPage extends HTMLDivElement {
    }
 
    initService() {
+      wsService.sendExitRoom(userService.getUser().id);
       wsService.onRooms((room) => {
          this.$roomSearch.list.innerHTML = RoomPageRender.createItem(room);
       })

@@ -115,6 +115,7 @@ export class GamePage extends HTMLDivElement {
       })
 
       wsService.onRoomStateGame(({ payload }) => {
+         console.log(payload);
          this.updateState({
             round: payload.currentRound ?? "En espera...",
             word: payload.currentWord,

@@ -85,15 +85,26 @@
 }
 
 .room-item__info {
-   .room-item__player-count {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   gap: 0.5rem;
+   width: 25%;
+
+   .room-item__round-count {
       font-size: inherit;
-      vertical-align: middle;
-      margin-right: 0.5rem;
    }
 
-   .room-icon__icon {
-      vertical-align: middle;
+   .room-item__player-count {
+      font-size: inherit;
+      margin-left: auto;
    }
+
+   .room-item__icon {
+      width: 1.5rem;
+      height: 1.5rem;
+   }
+
 }
 
 /** --------[ ROOM CREATE ]-------- */

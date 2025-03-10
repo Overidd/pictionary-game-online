@@ -4,11 +4,13 @@ export class RoomService {
    // Instancia única del singleton
    static instance = null;
 
+
    /**
     * @param {RoomApi} RoomApi
    */
    constructor(RoomApi) {
       this.roomApi = RoomApi;
+      this.rooms = new Map();
    }
 
    static getInstance(RoomApi) {
@@ -44,5 +46,9 @@ export class RoomService {
          console.error(`Error interno: ${error}`);
          return false
       }
+   }
+
+   appendAllRooms(rooms) {
+      this.rooms = new Map(rooms.map(room => [room.id, room]));
    }
 }
