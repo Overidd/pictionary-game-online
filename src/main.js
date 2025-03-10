@@ -8,7 +8,7 @@ import { RouterApp } from './ui/router';
 
 document.querySelector('#background').innerHTML = backgroundHTML;
 new RouterApp(document.querySelector('#app'))
-   .onInit()
-   .onNavigate()
-   .onPopState()
-   .onRouterRequest();
+.onInit()
+.onNavigate()
+.onPopState()
+.onRouterRequest();
