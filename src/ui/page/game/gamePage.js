@@ -69,8 +69,8 @@ export class GamePage extends HTMLDivElement {
    bindEvents(action) {
       const method = action === 'add' ? 'addEventListener' : 'removeEventListener';
       this.$endGame.btExit[method]('click', this.handleExit);
-      // window[method]('beforeunload', this.handleBeforeUnload);
       window[method]('popstate', this.handleBackButton);
+      // window[method]('beforeunload', this.handleBeforeUnload);
    }
 
    handleExit = () => {
@@ -117,7 +117,7 @@ export class GamePage extends HTMLDivElement {
       wsService.onRoomStateGame(({ payload }) => {
          console.log(payload);
          this.updateState({
-            round: payload.currentRound ?? "En espera...",
+            round: payload.currentRound ?? 'En espera...',
             word: payload.currentWord,
             cartoonist: payload.currentCartoonist,
             playerWin: payload.playerWin,

@@ -34,7 +34,7 @@ export class GameLayout extends HTMLDivElement {
 
    }
    disconnectedCallback() {
-      this.$logout.removeEventListener('click', this.handleLogout);
+      this.$aside.logout.removeEventListener('click', this.handleLogout);
    }
 
    initEvent() {
@@ -50,7 +50,7 @@ export class GameLayout extends HTMLDivElement {
          : this.$aside.configContainerModal.removeAttribute('open')
    }
 
-   
+
    //* --[ Metodos de eventos --]
    handleLogout = (e) => {
       e.preventDefault();

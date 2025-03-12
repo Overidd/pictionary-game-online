@@ -5,12 +5,14 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   min-height: 10rem;
 }
 
 .action__bt--active {
    outline: 1px solid tomato;
 }
 
-/* .action__message{
-   display: block;
-} */
+.btn__action--start,
+.btn__action--ready {
+   font-size: clamp(0.8rem, 1.5vw, 1rem);
+}

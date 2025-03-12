@@ -8,10 +8,11 @@
 .layout__aside {
    --width-icon: 3.8rem;
    --height-icon: 3.8rem;
-   right: 2rem;
-   top: 2rem;
+   right: 1rem;
+   top: 1rem;
+   margin: 1rem;
    z-index: 10;
-   position: absolute;
+   position: static;
 }
 
 
@@ -136,9 +137,9 @@
 /** --[ Style menu movil ]-- */
 .btn-menu {
    border-radius: 50%;
-   padding: 0.8rem 0;
+   padding: 0.5rem 0;
    display: block;
-   width: 3.5rem;
+   width: 3rem;
 
    img {
       display: block;
@@ -152,11 +153,16 @@
    .layout--game {
       justify-content: center;
    }
-   
+
    .layout__main--game {
       padding: 1.5rem 1.5rem;
       max-width: 65rem;
       height: 39rem;
+   }
+   .layout__aside{
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
    }
 
    .config__item {

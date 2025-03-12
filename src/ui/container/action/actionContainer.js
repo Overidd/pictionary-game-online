@@ -8,8 +8,8 @@ export class ActionContainer extends HTMLDivElement {
       this.innerHTML = actionHtml;
       this.classList.add('action');
       this.$bt = {
-         start: this.querySelector('.bt__action-start'),
-         ready: this.querySelector('.bt__action--ready'),
+         start: this.querySelector('.btn__action--start'),
+         ready: this.querySelector('.btn__action--ready'),
       }
       this.$ = {
          actionMessage: this.querySelector('.action__message'),

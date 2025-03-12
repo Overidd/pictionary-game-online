@@ -148,8 +148,8 @@ export class RoomPage extends HTMLDivElement {
    }
 
    handleJoinRoom = (e) => {
-      if (!e.target.matches('.room-item') || !e.target.hasAttribute('data-id')) return;
-      const roomId = e.target.getAttribute('data-id');
+      const roomId = e.target.closest('.room-item').getAttribute('data-id');
+      if (!roomId) return;
       const { id } = userService.getUser();
       wsService.joinRoom(roomId, id);
       wsService.onJoinRoom(({ payload }) => {

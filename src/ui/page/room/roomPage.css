@@ -49,7 +49,7 @@
 .room-item {
    background-color: var(--color-primary-300-transparent);
    border-radius: calc(var(--border-radius-bt));
-   font-size: 1.2rem;
+   font-size: clamp(0.8rem, 1.5vw, 1.4rem);
    cursor: pointer;
    list-style: none;
 
