@@ -50,12 +50,17 @@ img {
 body {
   font-family: 'Chau Philomene One', sans-serif;
   width: 100dvw;
-  height: 100dvh;
-  overflow: hidden;
+  min-height: 100dvh;
+  overflow-x: hidden;
 }
+
 
 input:focus-visible {
   outline: none;
+}
+
+.layout {
+  min-height: 100dvh;
 }
 
 
@@ -64,16 +69,15 @@ input:focus-visible {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   object-fit: cover;
   object-position: center;
-  overflow: hidden;
+  overflow-x: hidden;
   z-index: -1;
 }
 
 .layout {
   width: 100%;
-  height: 100dvb;
+  height: 100%;
 }
 
 .layout__main {
@@ -82,9 +86,10 @@ input:focus-visible {
   border-radius: var(--border-radius-box);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 90%;
+  height: 100%;
 }
 
-.P404{
+.P404 {
   font-family: fantasy;
   letter-spacing: 5px;
   position: absolute;
@@ -95,4 +100,10 @@ input:focus-visible {
   font-size: 7rem;
   font-weight: bold;
   color: var(--color-white-100);
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    overflow: hidden;
+  }
 }

@@ -11,7 +11,7 @@
 
 .chat__list {
    border-radius: var(--border-radius-box);
-   height: 77%;
+   height: 75%;
    padding: 0.7rem;
 
    overflow-y: auto;
@@ -36,11 +36,12 @@
 
 /** ---[ CHAT INPUT ]--- */
 .chat__input {
+   /* height: 15%; */
    /* height: 50%; */
    /* margin-top: auto; */
    /* margin-bottom: auto; */
 
-   margin-top: 1rem;
+   margin-top: 0.8rem;
    border-radius: var(--border-radius-box);
 }
 

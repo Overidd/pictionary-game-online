@@ -84,9 +84,9 @@
 .layout__main--game {
    padding: 1rem 1rem;
    max-width: 65rem;
-   height: 40rem;
+   /* height: 40rem; */
    /* TODO : ----> 39rem; */
-   overflow: hidden;
+   /* overflow: hidden; */
 }
 
 @media screen and (min-width: 768px) {
