@@ -10,8 +10,10 @@ import {
    Brush,
    PaintBucket,
    Trash2,
-    
-   LogOut 
+
+   LogOut,
+   Volume2,
+   VolumeOff,
 } from 'lucide';
 
 export const initialIcons = () => {
@@ -27,7 +29,9 @@ export const initialIcons = () => {
          PaintBucket,
          Trash2,
 
-         LogOut
+         LogOut,
+         Volume2,
+         VolumeOff,
       }
    });
 }

@@ -84,9 +84,12 @@ input:focus-visible {
   background-color: var(--color-primary-100-transparent);
   color: var(--color-white-100);
   border-radius: var(--border-radius-box);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 90%;
+  min-height: 30rem;
   height: 100%;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+  box-shadow: inset 0rem 0rem 0rem 0.3rem #140e6641, 0rem 0.1rem 0rem 0rem #fff4;
+  /* inset 0.1rem 0.6rem 0rem 0.3rem #3C74FF, 0rem 0.2rem 0rem 0.4rem #140E66; */
 }
 
 .P404 {

@@ -15,11 +15,11 @@ class EventEmitter {
    }
 
    /**
-    * @param {String} event 
-    * @param {any} data 
+    * @param {String} event aaAAA
+    * @param {any} data A
     */
    emit(event, data) {
-      this.events.get(event)?.forEach(callback => callback(data));
+      this.events.get(event)?.forEach(callback => callback(data)); 
    }
 
    /**

@@ -1,18 +1,31 @@
 <!-- <div class="layout layout--game"> -->
 <aside class="layout__aside">
-   <ul class="config">
-      <li class="config__item config__item--avatar">
-         <img class="config__avatar-img" src="" alt="avatar username">
-         <span class="config__avatar-username">username</span>
-      </li>
-      <li class="config__item config__item--setting" title="Aun esta en desarrollo ☕">
-         <i data-lucide="settings" class="config__setting-icon"></i>
-         <!-- <img class="config__setting-img" src="image/avatar.svg" alt="avatar username"> -->
-      </li>
-      <li class="config__item config__item--logout">
-         <i data-lucide="log-out" class="config__logout-icon"></i>
-      </li>
-   </ul>
+   <button class="btn-menu btn btn-secondary">
+      <img src="icon/menu.svg" alt="icon menu">
+   </button>
+   <dialog class="config">
+      <button class="btn btn-secondary config__btn-close">
+         x
+      </button>
+      <ul class="config__list">
+         <li class="config__item config__item--avatar">
+            <img class="config__avatar-img" src="" alt="avatar username">
+            <span class="config__avatar-username">username</span>
+         </li>
+         <li class="config__item config__item--setting" title="Aun esta en desarrollo ☕">
+            <i data-lucide="settings" class="config__setting-icon"></i>
+            <!-- <img class="config__setting-img" src="image/avatar.svg" alt="avatar username"> -->
+         </li>
+         <li class="config__item config__item--volume">
+            <img class="config__volume-icon" src="icon/volume-2.svg" alt="icon volume">
+            <img class="config__volume-off-icon" src="icon/volume-off.svg" alt="icon volume off">
+         </li>
+         <li class="config__item config__item--logout">
+            <i data-lucide="log-out" class="config__logout-icon"></i>
+         </li>
+      </ul>
+   </dialog>
+
 </aside>
 
 <main class="layout__main layout__main--game">

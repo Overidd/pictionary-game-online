@@ -81,7 +81,7 @@
       caret-color: var(--color-primary-100);
    }
 
-   .login__input.login__input--error{
+   .login__input.login__input--error {
       outline: 3px solid var(--color-tertiary-100);
    }
 
@@ -95,13 +95,12 @@
    padding: 1rem 2.5rem;
 }
 
-.login__error{
+.login__error {
    color: var(--color-tertiary-100);
    font-size: 1rem;
    font-weight: bold;
    letter-spacing: 1px;
    width: 100%;
-   grid-column: span 2;
    text-align: center;
 }
 
@@ -118,5 +117,9 @@
    .login__figure {
       width: 12rem;
       padding: 2.2rem;
+   }
+
+   .login__error {
+      grid-column: span 2;
    }
 }

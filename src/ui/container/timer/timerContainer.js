@@ -7,8 +7,10 @@ export class TimerContainer extends HTMLDivElement {
       this.innerHTML = timerHtml;
       this.classList.add('timer');
       this.time = this.querySelector('.timer__time')
+      this.timeSound = this.querySelector('.timer__sound')
    }
    connectedCallback() {
+      this.timeSound.play().catch(error => console.warn('Autoplay bloqueado por el navegador'));
    }
 
    setTime = (time) => {

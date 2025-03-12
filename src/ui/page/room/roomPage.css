@@ -5,7 +5,6 @@
 
    display: grid;
    gap: 1rem;
-   grid-template-rows: 10% 90%;
 }
 
 .room__actions {
@@ -36,7 +35,7 @@
 
 .room-search__input {
    width: 100%;
-   font-size: 1.1rem;
+   font-size: 1rem;
    padding: 1rem;
 }
 
@@ -88,8 +87,7 @@
    display: flex;
    justify-content: space-between;
    align-items: center;
-   gap: 0.5rem;
-   width: 25%;
+   gap: 1rem;
 
    .room-item__round-count {
       font-size: inherit;
@@ -157,5 +155,8 @@
       .room__button {
          font-size: 1rem;
       }
+   }
+   .room {
+      grid-template-rows: 10% 90%;
    }
 }
