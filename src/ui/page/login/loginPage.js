@@ -73,7 +73,7 @@ export class LoginPage extends HTMLFormElement {
    }
 
    validateInput(username) {
-      const isValid = username?.trim() && username.length >= 3;
+      const isValid = username?.trim() && /^[a-zA-Z][a-zA-Z0-9._]{2,19}$/.test(username);
       this.inputElement.classList.toggle('login__input--error', !isValid);
       return isValid;
    }
